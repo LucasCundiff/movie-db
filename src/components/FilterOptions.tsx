@@ -28,7 +28,7 @@ const FilterOptions: React.FC<FilterOptionsProps> = ({ onFilter }) => {
         type="text"
         name="genre"
         placeholder="Genre"
-        value={filters.genre.toLowerCase()}
+        value={filters.genre}
         onChange={handleInputChange}
       />
       <input

@@ -45,18 +45,18 @@ const AddMovieForm: React.FC = () => {
 
   return (
     <div>
-      <h2>Add Movie</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} />
-        <input type="text" name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} />
-        <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
-        <input type="number" name="rating" placeholder="Rating" value={formData.rating} onChange={handleChange} />
-        <input type="number" name="releaseYear" placeholder="Release Year" value={formData.releaseYear} onChange={handleChange} />
-        <input type="text" name="genres" placeholder="Genres (comma-separated)" value={formData.genres} onChange={handleChange} />
-        <input type="text" name="actors" placeholder="Actors (comma-separated)" value={formData.actors} onChange={handleChange} />
+        <input required type="text" name="title" placeholder="Title" value={formData.title} onChange={handleChange} />
+        <input required  type="text" name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} />
+        <textarea required  name="description" placeholder="Description..." value={formData.description} onChange={handleChange} />
+        <p style={{color: "#1e90ff"}}>Rating</p>
+        <input required  type="number" name="rating" min={1} max={10} value={formData.rating} onChange={handleChange} />
+        <p style={{color: "#1e90ff"}}>Release Year</p>
+        <input required  type="number" name="releaseYear" min={1800} max={2025} value={formData.releaseYear} onChange={handleChange} />
+        <input required  type="text" name="genres" placeholder="Genres (comma-separated)" value={formData.genres} onChange={handleChange} />
+        <input required  type="text" name="actors" placeholder="Actors (comma-separated)" value={formData.actors} onChange={handleChange} />
         <button type="submit">Add Movie</button>
       </form>
-
       {success && <p>Movie added successfully!</p>}
       {error && <p>{error}</p>}
     </div>

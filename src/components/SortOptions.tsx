@@ -6,7 +6,7 @@ interface SortOptionsProps {
 
 const SortOptions: React.FC<SortOptionsProps> = ({ onSort }) => {
   return (
-    <select onChange={(e) => onSort(e.target.value)}>
+    <select onChange={(e) => onSort(e.target.value)} style={{ padding: '10px', fontSize: '16px' }}>
       <option value="rating-asc">Lowest Rating</option>
       <option value="rating-desc">Highest Rating</option>
       <option value="title-asc">Alphabetical</option>

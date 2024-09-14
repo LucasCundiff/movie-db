@@ -14,6 +14,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       type="text"
       placeholder="Search movies..."
       onChange={handleSearch}
+      style={{ fontSize: '16px' }}
     />
   );
 };

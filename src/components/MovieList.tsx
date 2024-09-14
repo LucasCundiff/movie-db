@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Movie } from '../types/Movie';
-import { Filters } from '../types/Filters'// Assuming we create a Filters.ts file for the filters interface
+import { Filters } from '../types/Filters'
 
 interface MovieListProps {
   searchTerm: string;
@@ -40,8 +40,8 @@ const MovieList: React.FC<MovieListProps> = ({ searchTerm, sortOption, filters }
     return movies.filter(movie => {
       return (
         movie.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (filters.genre ? movie.genres.includes(filters.genre) : true) &&
-        (filters.actors ? movie.actors.includes(filters.actors) : true) &&
+        (filters.genre ? movie.genres.toLowerCase().includes(filters.genre.toLowerCase()) : true) &&
+        (filters.actors ? movie.actors.toLowerCase().includes(filters.actors.toLowerCase()) : true) &&
         (filters.rating ? movie.rating === filters.rating : true) &&
         (filters.releaseYear ? movie.releaseYear === filters.releaseYear : true)
       );
@@ -71,42 +71,40 @@ const MovieList: React.FC<MovieListProps> = ({ searchTerm, sortOption, filters }
   };
 
 
-  if (loading) return <div>Loading movies...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="loading">Loading movies...</div>;
+  if (error) return <div className='loading'>{error}</div>;
 
   const filteredMovies = filterMovies(movies, searchTerm, filters);
   const sortedMovies = sortMovies(filteredMovies, sortOption);
 
   if (sortedMovies.length === 0) {
-    return <div>No movies match your search or filter criteria.</div>;
+    return <div className='no-results'>No movies match your search or filter criteria.</div>;
   }
 
   return (
-    <div>
-      <div className="movie-grid">
-        {sortedMovies.map((movie) => (
-          <div key={movie.movie_id}>
-            <img
-              src={movie.image}
-              alt={movie.title}
-              height={imageHeight}
-              width={imageWidth}
-              onClick={() => toggleMovieDetails(movie.movie_id)}
-              style={{ cursor: 'pointer' }}
-            />
-            {selectedMovie === movie.movie_id && (
-              <div className="movie-detail">
-                <h2>{movie.title}</h2>
-                <p>Genres: {movie.genres.split(',').join(', ')}</p>
-                <p>Actors: {movie.actors.split(',').join(', ')}</p>
-                <p>{movie.description}</p>
-                <p>Rating: {movie.rating}</p>
-                <p>Release Year: {movie.releaseYear}</p>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+    <div className="movie-grid">
+      {sortedMovies.map((movie) => (
+        <div key={movie.movie_id}>
+          <img
+            src={movie.image}
+            alt={movie.title}
+            height={imageHeight}
+            width={imageWidth}
+            onClick={() => toggleMovieDetails(movie.movie_id)}
+            style={{ cursor: 'pointer' }}
+          />
+          {selectedMovie === movie.movie_id && (
+            <div className="movie-detail">
+              <h2>{movie.title}</h2>
+              <p><strong>Genres:</strong> {movie.genres.split(',').join(', ')}</p>
+              <p><strong>Actors:</strong> {movie.actors.split(',').join(', ')}</p>
+              <p><strong>Description:</strong> {movie.description}</p>
+              <p><strong>Rating:</strong> {movie.rating}/10</p>
+              <p><strong>Release Year:</strong> {movie.releaseYear}</p>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

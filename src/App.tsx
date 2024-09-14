@@ -23,14 +23,30 @@ const App: React.FC = () => {
     };
   
     return (
-      <div>
-        <SearchBar onSearch={setSearchTerm} />
-        <SortOptions onSort={setSortOption} />
-        <FilterOptions onFilter={setFilters} />
-        <MovieList searchTerm={searchTerm} sortOption={sortOption} filters={numericFilters} />
-      <AddMovieForm />
-    </div>
-  );
+      <div className="container">
+        <h1 style={{textAlign: 'center'}}>Movie Database App</h1>
+        <div className="search-bar">
+          <h3>Search</h3>
+          <SearchBar onSearch={setSearchTerm} />
+        </div>
+        <div className="sort-options">
+          <h3>Sort</h3>
+          <SortOptions onSort={setSortOption} />
+        </div>
+        <div className="filter-options">
+          <h3>Filter Options</h3>
+          <FilterOptions onFilter={setFilters} />
+        </div>
+        <div>
+          <h1 style={{paddingTop: 50}}>Movies</h1>
+          <MovieList searchTerm={searchTerm} sortOption={sortOption} filters={numericFilters} />
+        </div>
+        <div className="add-movie-form">
+          <h1 style={{paddingTop: 50}}>Add a Movie</h1>
+          <AddMovieForm />
+        </div>
+      </div>
+    );
 };
 
 export default App;
